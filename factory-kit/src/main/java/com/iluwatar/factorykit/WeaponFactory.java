@@ -36,23 +36,25 @@ import java.util.function.Supplier;
  */
 public interface WeaponFactory {
 
-  /**
-   * Creates an instance of the given type.
-   *
-   * @param name representing enum of an object type to be created.
-   * @return new instance of a requested class implementing {@link Weapon} interface.
-   */
-  Weapon create(WeaponType name);
+    /**
+     * Creates an instance of the given type.
+     *
+     * @param name representing enum of an object type to be created.
+     * @return new instance of a requested class implementing {@link Weapon} interface.
+     */
+    Weapon create(WeaponType name);
 
-  /**
-   * Creates factory - placeholder for specified {@link Builder}s.
-   *
-   * @param consumer for the new builder to the factory.
-   * @return factory with specified {@link Builder}s
-   */
-  static WeaponFactory factory(Consumer<Builder> consumer) {
-    var map = new HashMap<WeaponType, Supplier<Weapon>>();
-    consumer.accept(map::put);
-    return name -> map.get(name).get();
-  }
+    /**
+     * Creates factory - placeholder for specified {@link Builder}s.
+     *
+     * @param consumer for the new builder to the factory.
+     * @return factory with specified {@link Builder}s
+     */
+    static WeaponFactory factory(Consumer<Builder> consumer) {
+        var map = new HashMap<WeaponType, Supplier<Weapon>>();
+        // The put map method and the Builder lambda method have the same arguments
+        // ,for that, those functions are the same for the compiler and inspector
+        consumer.accept(map::put);
+        return name -> map.get(name).get();
+    }
 }
